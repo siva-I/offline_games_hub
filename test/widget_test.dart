@@ -7,24 +7,37 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:offline_games_hub/main.dart';
+import 'package:offline_games_hub/providers/theme_provider.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  testWidgets('App renders correctly and theme toggle works', (WidgetTester tester) async {
+    // Set up SharedPreferences
+    SharedPreferences.setMockInitialValues({});
+    await SharedPreferences.getInstance();
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    await tester.pumpWidget(
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => ThemeProvider()),
+        ],
+        child: const MyApp(),
+      ),
+    );
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    // Verify that the welcome text is displayed
+    expect(find.text('Welcome to Offline Games Hub!'), findsOneWidget);
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    // Verify that both buttons are present
+    expect(find.text('Start Playing'), findsOneWidget);
+    expect(find.text('Settings'), findsOneWidget);
+
+    // Test theme toggle
+    expect(find.byIcon(Icons.dark_mode), findsOneWidget);
+    await tester.tap(find.byIcon(Icons.dark_mode));
+    await tester.pumpAndSettle();
+    expect(find.byIcon(Icons.light_mode), findsOneWidget);
   });
 }
