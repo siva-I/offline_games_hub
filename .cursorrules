@@ -1,0 +1,103 @@
+# 🎮 Offline Game Hub - Cursor Rules
+
+## 📁 Project Structure Rules
+- All Flutter code must be placed in the `lib/` directory
+- Follow the established directory structure:
+  ```
+  lib/
+  ├── core/          # Core functionality and utilities
+  ├── features/      # Feature-specific code
+  ├── models/        # Data models
+  ├── providers/     # State management
+  └── services/      # Business logic and services
+  ```
+- Each game module should be self-contained in its own directory under `features/games/`
+- Widgets should be placed in appropriate directories based on their scope
+
+## 📝 Code Style Rules
+- Use Dart's official style guide (https://dart.dev/guides/language/effective-dart/style)
+- Maximum line length: 80 characters
+- Use 2 spaces for indentation
+- Always use trailing commas in multi-line parameter lists
+- Use single quotes for strings unless the string contains single quotes
+- Sort imports in the following order:
+  1. Dart imports
+  2. Flutter imports
+  3. Package imports
+  4. Project imports
+
+## 🧩 Widget Rules
+- All widget classes must be private (prefixed with _) unless they are meant to be used outside their file
+- Use const constructors for widgets when possible
+- Extract complex widgets into separate files
+- Use meaningful widget names that describe their purpose
+- Implement proper widget lifecycle management
+- Use early returns in widget build methods for better readability
+
+## 🎨 UI/UX Rules
+- Follow Material Design guidelines
+- Implement responsive layouts that work on different screen sizes
+- Use the theme system for consistent styling
+- Support both light and dark themes
+- Ensure proper contrast ratios for accessibility
+- Use semantic colors from the theme
+- Implement proper error states and loading indicators
+
+## 🧪 Testing Rules
+- Write unit tests for all business logic
+- Write widget tests for complex UI components
+- Test both light and dark themes
+- Test offline functionality
+- Test game state persistence
+- Document test coverage requirements
+
+## 🔒 Security Rules
+- Never store sensitive data in plain text
+- Use proper encryption for any stored data
+- Validate all user inputs
+- Implement proper error handling
+- Follow Flutter security best practices
+
+## 📦 Dependency Rules
+- Use exact versions in pubspec.yaml
+- Document the purpose of each dependency
+- Keep dependencies up to date
+- Remove unused dependencies
+- Use official Flutter packages when available
+
+## 🔄 State Management Rules
+- Use Provider for state management
+- Keep state as close to where it's used as possible
+- Use immutable state objects
+- Implement proper state initialization
+- Handle state changes appropriately
+
+## 🎮 Game Module Rules
+- Each game must be self-contained
+- Implement proper game state management
+- Save game progress locally
+- Handle game pause/resume properly
+- Implement proper error handling
+- Test game performance
+
+## 📝 Documentation Rules
+- Document all public APIs
+- Use clear and concise comments
+- Document complex algorithms
+- Keep README up to date
+- Document any known issues or limitations
+
+## 🔍 Code Review Rules
+- Review all code changes
+- Ensure proper testing
+- Check for performance issues
+- Verify accessibility compliance
+- Ensure proper error handling
+- Check for security vulnerabilities
+
+## 🚀 Deployment Rules
+- Test on multiple devices before deployment
+- Verify offline functionality
+- Check performance metrics
+- Ensure proper error handling
+- Verify all features work as expected 
