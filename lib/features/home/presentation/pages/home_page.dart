@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:offline_games_hub/providers/theme_provider.dart';
 import 'package:offline_games_hub/core/widgets/app_button.dart';
+import 'package:offline_games_hub/features/games/screens/memory_match_screen.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -27,16 +28,22 @@ class HomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
-              'Welcome to Offline Games Hub!',
+              'Welcome to the Offline Games Hub!',
               style: TextStyle(fontSize: 24),
             ),
             const SizedBox(height: 32),
             AppButton(
               text: 'Start Playing',
               onPressed: () {
-                // TODO: Navigate to games list
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const MemoryMatchScreen(),
+                  ),
+                );
               },
-              icon: Icons.play_arrow,
+              isOutlined: true,
+              icon: Icons.play_circle,
             ),
             const SizedBox(height: 16),
             AppButton(

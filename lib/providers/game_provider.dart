@@ -1,43 +1,58 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../core/services/storage_service.dart';
+import '../features/games/models/game_module.dart';
+import '../features/games/services/game_state_service.dart';
 
 class GameProvider extends ChangeNotifier {
-  final StorageService _storageService = StorageService();
-  bool _isInitialized = false;
+  final GameStateService _gameStateService;
+  GameModule? _currentGame;
+  bool _isPaused = false;
 
-  Future<void> init() async {
-    if (!_isInitialized) {
-      await _storageService.init();
-      _isInitialized = true;
+  GameProvider(this._gameStateService);
+
+  GameModule? get currentGame => _currentGame;
+  bool get isPaused => _isPaused;
+
+  Future<void> setCurrentGame(GameModule game) async {
+    _currentGame = game;
+    await _currentGame?.initialize();
+    await _currentGame?.loadState();
+    notifyListeners();
+  }
+
+  Future<void> pauseGame() async {
+    if (_currentGame != null) {
+      await _currentGame!.pause();
+      _isPaused = true;
+      notifyListeners();
     }
   }
 
-  Future<void> saveHighScore(String gameId, int score) async {
-    await init();
-    await _storageService.saveHighScore(gameId, score);
-    notifyListeners();
+  Future<void> resumeGame() async {
+    if (_currentGame != null) {
+      await _currentGame!.resume();
+      _isPaused = false;
+      notifyListeners();
+    }
   }
 
-  Future<List<int>> getHighScores(String gameId) async {
-    await init();
-    return await _storageService.getHighScores(gameId);
+  Future<void> resetGame() async {
+    if (_currentGame != null) {
+      await _currentGame!.reset();
+      notifyListeners();
+    }
   }
 
-  Future<void> saveGameState(String gameId, String state) async {
-    await init();
-    await _storageService.saveGameState(gameId, state);
-    notifyListeners();
+  Future<void> saveGameState() async {
+    if (_currentGame != null) {
+      await _currentGame!.saveState();
+    }
   }
 
-  Future<String?> getGameState(String gameId) async {
-    await init();
-    return await _storageService.getGameState(gameId);
-  }
-
-  Future<void> clearGameState(String gameId) async {
-    await init();
-    await _storageService.clearGameState(gameId);
-    notifyListeners();
+  Future<void> updateScore(int score) async {
+    if (_currentGame != null) {
+      await _gameStateService.saveHighScore(_currentGame!.id, score);
+      notifyListeners();
+    }
   }
 } 
