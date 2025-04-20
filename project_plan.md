@@ -17,19 +17,37 @@ A Flutter-based mobile application serving as a container for multiple offline p
   - [x] flutter_launcher_icons: ^0.13.1
 - [x] Set up linting and code formatting
 
-### 2. Core Architecture
-- [ ] Implement state management setup
-- [ ] Create theme configuration (including dark mode)
-- [ ] Set up navigation system
-- [ ] Implement local storage system
-- [ ] Create base widget components
+### 2. Core Architecture ✅
+- [x] Implement state management setup
+  - [x] ThemeProvider for theme management
+  - [x] GameProvider for game state management
+- [x] Create theme configuration (including dark mode)
+  - [x] Light and dark theme setup
+  - [x] Theme switching functionality
+- [x] Set up navigation system
+  - [x] AppRouter implementation
+  - [x] Route configuration
+- [x] Implement local storage system
+  - [x] StorageService for data persistence
+  - [x] SharedPreferences integration
+- [x] Create base widget components
+  - [x] AppButton component
+  - [x] GameCard component
 
-### 3. Main Menu Implementation
-- [ ] Design and implement main menu UI
-- [ ] Create game grid/list view
-- [ ] Implement navigation between games
-- [ ] Add theme switching functionality
-- [ ] Implement settings screen
+### 3. Main Menu Implementation ✅
+- [x] Design and implement main menu UI
+  - [x] HomePage layout
+  - [x] Welcome message
+  - [x] Action buttons
+- [x] Create game grid/list view (placeholder)
+- [x] Implement navigation between games (placeholder)
+- [x] Add theme switching functionality
+  - [x] Theme toggle in app bar
+  - [x] Theme toggle in settings
+- [x] Implement settings screen
+  - [x] SettingsPage layout
+  - [x] Theme toggle switch
+  - [x] Navigation integration
 
 ### 4. Game Module System
 - [ ] Create game module interface
@@ -46,7 +64,10 @@ A Flutter-based mobile application serving as a container for multiple offline p
 - [ ] Test and optimize performance
 
 ### 6. Testing and Optimization
-- [ ] Write unit tests
+- [x] Write unit tests
+  - [x] Theme toggle tests
+  - [x] Navigation tests
+  - [x] UI component tests
 - [ ] Perform UI/UX testing
 - [ ] Optimize performance
 - [ ] Test offline functionality
@@ -61,12 +82,12 @@ A Flutter-based mobile application serving as a container for multiple offline p
 
 ## 📅 Timeline
 - Project Setup: 1 day ✅
-- Core Architecture: 2 days
-- Main Menu: 2 days
+- Core Architecture: 2 days ✅
+- Main Menu: 2 days ✅
 - Game Module System: 2 days
 - First Game: 3 days
-- Testing: 2 days
-- Documentation: 1 day
+- Testing: 2 days (partially complete)
+- Documentation: 1 day (partially complete)
 
 Total Estimated Time: 13 days
 
@@ -98,8 +119,6 @@ lib/
 │   └── widgets/
 ├── features/      # Feature-specific code
 │   ├── games/
-│   │   ├── game1/
-│   │   └── game2/
 │   ├── home/
 │   └── settings/
 ├── models/
@@ -111,4 +130,6 @@ lib/
 1. ✅ Review and approve project plan
 2. ✅ Set up development environment
 3. ✅ Begin with Project Setup and Configuration milestone
-4. Begin Core Architecture implementation 
+4. ✅ Complete Core Architecture implementation
+5. ✅ Complete Main Menu implementation
+6. Begin Game Module System implementation 
