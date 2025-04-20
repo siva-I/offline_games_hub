@@ -59,11 +59,11 @@ class MemoryMatchCard extends StatelessWidget {
                         ? theme.colorScheme.primary.withOpacity(0.5)
                         : theme.colorScheme.primary,
                   )
-                : Icon(
+                : const Icon(
                     Icons.question_mark,
-                    key: const ValueKey('question'),
+                    key: ValueKey('question'),
                     size: 36.0,
-                    color: theme.colorScheme.onPrimary,
+                    color: Colors.white,
                   ),
           ),
         ),

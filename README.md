@@ -2,6 +2,16 @@
 
 A Flutter-based mobile application that serves as a container for multiple offline playable minigames. The app is designed to work fully without internet access and allows users to enjoy classic and casual games through a single, easy-to-navigate interface.
 
+## 🎯 Available Games
+
+### 1. Memory Match
+- 4x4 grid of cards with beautiful Material icons
+- Smooth card flipping animations
+- Score tracking (moves and matches)
+- Theme-aware design that works in both light and dark mode
+- Game completion detection
+- Reset functionality
+
 ## 🚀 Features
 
 - Multiple offline playable games
@@ -10,6 +20,8 @@ A Flutter-based mobile application that serves as a container for multiple offli
 - Local score tracking
 - No internet required
 - Cross-platform support
+- Smooth animations
+- Theme-aware design
 
 ## 🛠️ Tech Stack
 
@@ -36,9 +48,14 @@ lib/
 │   ├── utils/
 │   └── widgets/
 ├── features/      # Feature-specific code
-│   ├── games/
-│   ├── home/
-│   └── settings/
+│   ├── games/     # Game modules
+│   │   ├── models/
+│   │   ├── providers/
+│   │   ├── screens/
+│   │   ├── services/
+│   │   └── widgets/
+│   ├── home/      # Home screen
+│   └── settings/  # Settings screen
 ├── models/        # Data models
 ├── providers/     # State management
 └── services/      # Business logic and services
@@ -67,6 +84,15 @@ lib/
    flutter run
    ```
 
+## 🎮 How to Play
+
+1. **Memory Match**
+   - Tap on any card to flip it
+   - Try to find matching pairs of icons
+   - The game tracks your moves and matches
+   - Complete the game by finding all pairs
+   - Use the refresh button to start a new game
+
 ## 🧪 Running Tests
 
 ```bash
@@ -88,3 +114,11 @@ flutter test test/[test_file_name].dart
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🎯 Upcoming Features
+
+1. More games in the collection
+2. High score system
+3. Sound effects and background music
+4. User profiles
+5. Game statistics and achievements
