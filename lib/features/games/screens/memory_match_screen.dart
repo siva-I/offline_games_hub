@@ -39,6 +39,7 @@ class _MemoryMatchScreenContent extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider = context.watch<MemoryMatchProvider>();
     final game = provider.game;
+    final isGameComplete = provider.matches == (game.gridSize * game.gridSize) ~/ 2;
 
     return Scaffold(
       appBar: AppBar(
@@ -50,37 +51,164 @@ class _MemoryMatchScreenContent extends StatelessWidget {
           ),
         ],
       ),
-      body: Column(
+      body: Stack(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Text('Moves: ${provider.moves}'),
-                Text('Matches: ${provider.matches}'),
-              ],
-            ),
-          ),
-          Expanded(
-            child: GridView.builder(
-              padding: const EdgeInsets.all(16.0),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: game.gridSize,
-                crossAxisSpacing: 8.0,
-                mainAxisSpacing: 8.0,
+          Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    _ScoreCard(
+                      icon: Icons.directions_run,
+                      label: 'Moves',
+                      value: provider.moves,
+                      color: Colors.blue,
+                    ),
+                    _ScoreCard(
+                      icon: Icons.check_circle,
+                      label: 'Matches',
+                      value: provider.matches,
+                      color: Colors.green,
+                    ),
+                  ],
+                ),
               ),
-              itemCount: game.cards.length,
-              itemBuilder: (context, index) {
-                return MemoryMatchCard(
-                  card: game.cards[index],
-                  isFlipped: provider.flippedIndices.contains(index),
-                  onTap: () => provider.flipCard(index),
-                );
-              },
+              Expanded(
+                child: GridView.builder(
+                  padding: const EdgeInsets.all(16.0),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: game.gridSize,
+                    crossAxisSpacing: 8.0,
+                    mainAxisSpacing: 8.0,
+                  ),
+                  itemCount: game.cards.length,
+                  itemBuilder: (context, index) {
+                    return MemoryMatchCard(
+                      card: game.cards[index],
+                      isFlipped: provider.flippedIndices.contains(index),
+                      onTap: () => provider.flipCard(index),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+          if (isGameComplete)
+            _GameCompleteOverlay(
+              moves: provider.moves,
+              onRestart: provider.resetGame,
             ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ScoreCard extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final int value;
+  final Color color;
+
+  const _ScoreCard({
+    required this.icon,
+    required this.label,
+    required this.value,
+    required this.color,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      decoration: BoxDecoration(
+        color: color.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: color.withOpacity(0.3)),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, color: color),
+          const SizedBox(width: 8),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                label,
+                style: TextStyle(
+                  color: color,
+                  fontSize: 12,
+                ),
+              ),
+              Text(
+                value.toString(),
+                style: TextStyle(
+                  color: color,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _GameCompleteOverlay extends StatelessWidget {
+  final int moves;
+  final VoidCallback onRestart;
+
+  const _GameCompleteOverlay({
+    required this.moves,
+    required this.onRestart,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.black54,
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(
+              Icons.celebration,
+              size: 64,
+              color: Colors.amber,
+            ),
+            const SizedBox(height: 16),
+            Text(
+              'Congratulations!',
+              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'You completed the game in $moves moves!',
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    color: Colors.white70,
+                  ),
+            ),
+            const SizedBox(height: 24),
+            ElevatedButton.icon(
+              onPressed: onRestart,
+              icon: const Icon(Icons.refresh),
+              label: const Text('Play Again'),
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                backgroundColor: Colors.amber,
+                foregroundColor: Colors.black,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
