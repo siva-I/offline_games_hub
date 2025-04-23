@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:offline_games_hub/providers/theme_provider.dart';
 import 'package:offline_games_hub/core/widgets/app_button.dart';
 import 'package:offline_games_hub/features/games/screens/memory_match_screen.dart';
+import 'package:offline_games_hub/features/games/widgets/game_tile.dart';
+import 'package:offline_games_hub/features/games/models/game.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -198,10 +200,12 @@ class HomePage extends StatelessWidget {
                 mainAxisSpacing: 16,
                 crossAxisSpacing: 16,
                 children: [
-                  _GameTile(
-                    title: 'Memory Match',
-                    assetPath: 'assets/images/games/memory_match.png',
-                    color: theme.colorScheme.primary,
+                  GameTile(
+                    game: Game(
+                      id: 'memory_match',
+                      name: 'Memory Match',
+                      description: 'Test your memory by matching pairs of cards',
+                    ),
                     onTap: () {
                       Navigator.push(
                         context,
@@ -216,41 +220,6 @@ class HomePage extends StatelessWidget {
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class _GameTile extends StatelessWidget {
-  final String title;
-  final String assetPath;
-  final Color color;
-  final VoidCallback onTap;
-
-  const _GameTile({
-    required this.title,
-    required this.assetPath,
-    required this.color,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      elevation: 4,
-      clipBehavior: Clip.antiAlias,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: InkWell(
-        onTap: onTap,
-        child: AspectRatio(
-          aspectRatio: 1,
-          child: Image.asset(
-            assetPath,
-            fit: BoxFit.cover,
-          ),
         ),
       ),
     );
