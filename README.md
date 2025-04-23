@@ -9,7 +9,24 @@ A Flutter-based mobile application that serves as a container for multiple offli
 - Smooth card flipping animations
 - Score tracking (moves and matches)
 - Theme-aware design that works in both light and dark mode
-- Game completion detection
+- Game completion detection with celebration overlay
+- Reset functionality
+
+### 2. Tic Tac Toe
+- Classic 3x3 grid gameplay
+- Two-player X and O turns
+- Win and draw detection
+- Theme-aware design that works in both light and dark mode
+- Game completion detection with celebration overlay
+- Reset functionality
+
+### 3. Snake
+- Classic snake gameplay with modern UI
+- Keyboard and touch controls
+- Progressive difficulty (snake speeds up as you score)
+- Score tracking
+- Theme-aware design that works in both light and dark mode
+- Game completion detection with celebration overlay
 - Reset functionality
 
 ## 🚀 Features
@@ -22,6 +39,10 @@ A Flutter-based mobile application that serves as a container for multiple offli
 - Cross-platform support
 - Smooth animations
 - Theme-aware design
+- Reusable game components:
+  - Victory celebration overlay
+  - Score tracking widgets
+  - Game reset functionality
 
 ## 🛠️ Tech Stack
 
@@ -46,7 +67,7 @@ lib/
 │   ├── constants/
 │   ├── theme/
 │   ├── utils/
-│   └── widgets/
+│   └── widgets/   # Reusable widgets (GameCompleteOverlay, etc.)
 ├── features/      # Feature-specific code
 │   ├── games/     # Game modules
 │   │   ├── models/
@@ -91,7 +112,23 @@ lib/
    - Try to find matching pairs of icons
    - The game tracks your moves and matches
    - Complete the game by finding all pairs
+   - Celebration overlay appears on victory
    - Use the refresh button to start a new game
+
+2. **Tic Tac Toe**
+   - Players take turns placing X and O
+   - Get three in a row to win
+   - Game detects wins and draws
+   - Celebration overlay appears on victory
+   - Use the refresh button to start a new game
+
+3. **Snake**
+   - Control the snake using arrow keys or on-screen buttons
+   - Eat food to grow longer and increase your score
+   - Avoid hitting walls and yourself
+   - Snake speeds up every 50 points
+   - Game over when you hit a wall or yourself
+   - Use the refresh button or space bar to start a new game
 
 ## 🧪 Running Tests
 

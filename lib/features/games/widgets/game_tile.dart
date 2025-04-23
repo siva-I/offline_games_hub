@@ -18,6 +18,9 @@ class GameTile extends StatelessWidget {
 
     return Card(
       elevation: 4,
+      color: isDark 
+        ? theme.colorScheme.primary.withOpacity(0.8)
+        : theme.colorScheme.primary,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
       ),
@@ -32,18 +35,14 @@ class GameTile extends StatelessWidget {
               Icon(
                 _getGameIcon(game.id),
                 size: 48,
-                color: isDark 
-                  ? theme.colorScheme.secondary 
-                  : theme.colorScheme.primary,
+                color: theme.colorScheme.onPrimary,
               ),
               const SizedBox(height: 12),
               Text(
                 game.name,
                 style: theme.textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.bold,
-                  color: isDark 
-                    ? theme.colorScheme.onSurface 
-                    : theme.colorScheme.primary,
+                  color: theme.colorScheme.onPrimary,
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -51,9 +50,7 @@ class GameTile extends StatelessWidget {
               Text(
                 game.description,
                 style: theme.textTheme.bodySmall?.copyWith(
-                  color: isDark 
-                    ? theme.colorScheme.onSurface.withOpacity(0.8) 
-                    : theme.colorScheme.onSurface,
+                  color: theme.colorScheme.onPrimary.withOpacity(0.9),
                 ),
                 textAlign: TextAlign.center,
                 maxLines: 2,

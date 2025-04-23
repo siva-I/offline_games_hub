@@ -4,6 +4,7 @@ import '../providers/memory_match_provider.dart';
 import '../models/memory_match_game.dart';
 import '../models/base_game.dart';
 import '../widgets/memory_match_card.dart';
+import '../../../core/widgets/game_complete_overlay.dart';
 
 class MemoryMatchScreen extends StatelessWidget {
   const MemoryMatchScreen({super.key});
@@ -96,9 +97,11 @@ class _MemoryMatchScreenContent extends StatelessWidget {
             ],
           ),
           if (isGameComplete)
-            _GameCompleteOverlay(
-              moves: provider.moves,
+            GameCompleteOverlay(
+              title: 'Congratulations!',
+              message: 'You completed the game in ${provider.moves} moves!',
               onRestart: provider.resetGame,
+              accentColor: Colors.amber,
             ),
         ],
       ),
@@ -154,61 +157,6 @@ class _ScoreCard extends StatelessWidget {
             ],
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _GameCompleteOverlay extends StatelessWidget {
-  final int moves;
-  final VoidCallback onRestart;
-
-  const _GameCompleteOverlay({
-    required this.moves,
-    required this.onRestart,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Colors.black54,
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(
-              Icons.celebration,
-              size: 64,
-              color: Colors.amber,
-            ),
-            const SizedBox(height: 16),
-            Text(
-              'Congratulations!',
-              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              'You completed the game in $moves moves!',
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    color: Colors.white70,
-                  ),
-            ),
-            const SizedBox(height: 24),
-            ElevatedButton.icon(
-              onPressed: onRestart,
-              icon: const Icon(Icons.refresh),
-              label: const Text('Play Again'),
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                backgroundColor: Colors.amber,
-                foregroundColor: Colors.black,
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }

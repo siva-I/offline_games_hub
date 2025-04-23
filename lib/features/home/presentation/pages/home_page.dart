@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:offline_games_hub/providers/theme_provider.dart';
 import 'package:offline_games_hub/core/widgets/app_button.dart';
 import 'package:offline_games_hub/features/games/screens/memory_match_screen.dart';
+import 'package:offline_games_hub/features/games/screens/tic_tac_toe_screen.dart';
+import 'package:offline_games_hub/features/games/screens/snake_screen.dart';
 import 'package:offline_games_hub/features/games/widgets/game_tile.dart';
 import 'package:offline_games_hub/features/games/models/game.dart';
 
@@ -113,7 +115,7 @@ class HomePage extends StatelessWidget {
             ),
             ListTile(
               leading: Icon(
-                Icons.memory,
+                Icons.grid_view,
                 color: theme.colorScheme.primary,
               ),
               title: Text(
@@ -128,6 +130,48 @@ class HomePage extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) => const MemoryMatchScreen(),
+                  ),
+                );
+              },
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.grid_3x3,
+                color: theme.colorScheme.primary,
+              ),
+              title: Text(
+                'Tic Tac Toe',
+                style: TextStyle(
+                  color: theme.colorScheme.onSurface,
+                ),
+              ),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const TicTacToeScreen(),
+                  ),
+                );
+              },
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.sports_esports,
+                color: theme.colorScheme.primary,
+              ),
+              title: Text(
+                'Snake',
+                style: TextStyle(
+                  color: theme.colorScheme.onSurface,
+                ),
+              ),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const SnakeScreen(),
                   ),
                 );
               },
@@ -215,7 +259,36 @@ class HomePage extends StatelessWidget {
                       );
                     },
                   ),
-                  // Add more game tiles here as new games are implemented
+                  GameTile(
+                    game: Game(
+                      id: 'tic_tac_toe',
+                      name: 'Tic Tac Toe',
+                      description: 'Classic X\'s and O\'s game for two players',
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const TicTacToeScreen(),
+                        ),
+                      );
+                    },
+                  ),
+                  GameTile(
+                    game: Game(
+                      id: 'snake',
+                      name: 'Snake',
+                      description: 'Classic snake game - eat food and grow longer!',
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const SnakeScreen(),
+                        ),
+                      );
+                    },
+                  ),
                 ],
               ),
             ),
