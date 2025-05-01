@@ -53,8 +53,8 @@ class SnakeGame extends ChangeNotifier implements BaseGame {
   @override
   final Duration estimatedDuration;
 
-  static const int gridSize = 20;
-  static const initialSpeed = 300; // Slower initial speed (was 200)
+  static const int gridSize = 15; // Reduced grid size for more square appearance
+  static const initialSpeed = 400; // Slower initial speed for better control
   
   List<Position> snake = [];
   Position? food;
@@ -63,7 +63,6 @@ class SnakeGame extends ChangeNotifier implements BaseGame {
   Timer? gameTimer;
   int score = 0;
   int speed = initialSpeed;
-  bool isMoving = false; // Track if snake is currently moving
   Position? nextPosition; // Store the next position for animation
 
   SnakeGame({
@@ -150,7 +149,7 @@ class SnakeGame extends ChangeNotifier implements BaseGame {
   }
 
   void moveSnake() {
-    if (isGameOver || isMoving) return;
+    if (isGameOver) return;
 
     final head = snake.first;
     final newHead = head.translate(direction);
@@ -161,38 +160,31 @@ class SnakeGame extends ChangeNotifier implements BaseGame {
       return;
     }
 
-    // Check for self collision
-    if (snake.contains(newHead)) {
-      gameOver();
-      return;
+    // Check for self collision (excluding the tail since it will move)
+    for (int i = 0; i < snake.length - 1; i++) {
+      if (snake[i] == newHead) {
+        gameOver();
+        return;
+      }
     }
 
-    isMoving = true;
     nextPosition = newHead;
+    snake.insert(0, newHead);
 
-    // Animate the movement
-    Timer(const Duration(milliseconds: 50), () {
-      if (isGameOver) return;
-      
-      snake.insert(0, nextPosition!);
-      nextPosition = null;
-
-      // Check if food is eaten
-      if (snake.first == food) {
-        score += 10;
-        spawnFood();
-        // Increase speed every 100 points (was 50)
-        if (score % 100 == 0) {
-          speed = max(100, speed - 10); // Slower speed increase (was 50ms and -20)
-          restartTimer();
-        }
-      } else {
-        snake.removeLast();
+    // Check if food is eaten
+    if (snake.first == food) {
+      score += 10;
+      spawnFood();
+      // Increase speed every 50 points, but more gradually
+      if (score % 50 == 0) {
+        speed = max(200, speed - 10); // Slower speed increase
+        restartTimer();
       }
+    } else {
+      snake.removeLast();
+    }
 
-      isMoving = false;
-      notifyListeners();
-    });
+    notifyListeners();
   }
 
   void restartTimer() {
